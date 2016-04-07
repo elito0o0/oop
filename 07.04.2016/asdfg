@@ -1,0 +1,52 @@
+#include<iostream>
+using namespace std;
+
+class Animal
+{
+	char*name;
+	int count;
+	int age;
+	static int population;
+public:
+	Animal();
+	Animal(Animal &p);
+	Animal & operator=(const Animal&p);
+	~Animal();
+	void initPopulation(){ population = 0; }
+
+};
+Animal::Animal()
+{
+	name = "";
+	count = 0;
+	age = 0;
+
+}
+Animal::Animal(Animal &p)
+{
+	name = new char[strlen(p.name) + 1];
+	strcpy(name, p.name);
+	this->count = p.count;
+	this->age = p.age;
+	this->population = p.population;
+}
+Animal &operator=(const Animal&p)
+{
+
+}
+Animal::~Animal()
+{
+	delete name;
+
+}
+class Farm
+{
+	char*name;
+	Animal* animals;
+public:
+	int getAnimalPopulation();
+};
+int Farm::getAnimalPopulation()
+{
+
+}
