@@ -3,20 +3,22 @@
 using namespace std;
 class Person
 {
-	char name[25];
+	char *name;
 	int age;
 public:
-	Person(const char* _name = "", int _age = 0) :age(_age){ strcpy_s(name, _name); };
+	Person(const char* _name = "", int _age = 0) :age(_age){ name = new char[strlen(_name) + 1]; strcpy_s(name, strlen(name), _name); };
 	Person(const Person& k)
 	{
 		this->age = k.age;
-		strcpy_s(name, k.name);
+		name = new char[strlen(k.name) + 1];
+		strcpy_s(name,strlen(name), k.name);
 
 	}
 	Person& operator=(const Person& other)
 	{
 		if (this != &other)
-			strcpy_s(name, other.name);
+			name = new char[strlen(other.name) + 1];
+			strcpy_s(name,strlen(name), other.name);
 		age = other.age;
 		return (*this);
 
@@ -28,19 +30,22 @@ public:
 };
 
 class Student :public Person{
-	char favoriteClass[50];
+	char *favoriteClass;
 public:
-	Student(const char* _name = "", int _age = 0, const char* _favoriteClass = "") :Person(_name, _age){ strcpy_s(favoriteClass, _favoriteClass); };
-	Student(const Student& l)
+	Student(const char* _name = "", int _age = 0, const char* _favoriteClass = "") :Person(_name, _age){ 
+		favoriteClass = new char[strlen(_favoriteClass) + 1];
+		strcpy_s(favoriteClass,strlen(favoriteClass), _favoriteClass); };
+	Student(const Student& l) :Person(l)
 	{
-		Person::Person();
-		strcpy_s(favoriteClass, l.favoriteClass);
+		favoriteClass = new char[strlen(l.favoriteClass) + 1];
+		strcpy_s(favoriteClass,strlen(favoriteClass), l.favoriteClass);
 	}
 	Student& operator=(const Student& other)
 	{
+		Person::operator=(other);
 		if (this != &other)
-			Person::operator=(other);
-		strcpy_s(favoriteClass, other.favoriteClass);
+			favoriteClass = new char[strlen(other.favoriteClass) + 1];
+		strcpy_s(favoriteClass,strlen(favoriteClass), other.favoriteClass);
 		return (*this);
 
 	}
@@ -51,21 +56,25 @@ public:
 };
 class Teacher :public Person
 {
-	char speciality[50];
+	char* speciality;
 public:
 	Teacher(const char* _name = "", int _age = 0, const char* _speciality = "") :Person(_name, _age){
-		strcpy_s(speciality, _speciality);
+
+		speciality = new char[strlen(_speciality) + 1];
+		
+		strcpy_s(speciality, strlen(speciality), _speciality);
 	}
-	Teacher(const Teacher& d)
+	Teacher(const Teacher& d) : Person(d)
 	{
-		Person::Person();
-		strcpy_s(speciality, d.speciality);
+		speciality = new char[strlen(d.speciality) + 1];
+		strcpy_s(speciality,strlen(speciality), d.speciality);
 	}
 	Teacher& operator=(const Teacher& other)
 	{
 		Person::operator=(other);
 		if (this != &other)
-			strcpy_s(speciality, other.speciality);
+			speciality = new char[strlen(other.speciality) + 1];
+			strcpy_s(speciality,strlen(speciality),other.speciality);
 		return (*this);
 	}
 	~Teacher()
