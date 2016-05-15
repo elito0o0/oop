@@ -1,4 +1,5 @@
 #include<iostream>
+#include<string>
 using namespace std;
 const int max = 15;
 class Student
@@ -178,13 +179,13 @@ public:
 		subject = new char[strlen(newSubject) + 1];
 		strcpy_s(subject, strlen(subject), newSubject);
 	}
-	/*~Teacher()
+	~Teacher()
 	{
 		delete[] firstName;
 		delete[] surname;
 		delete[] lastName;
 		delete[] subject;
-	}*/
+	}
 };
 class School
 {
@@ -226,20 +227,50 @@ public:
 			}
 		}
 	}
-	void searchStudentByFirstAndLastNAme();
+	void searchStudentByFirstAndLastName(char *firstName,char *lastName)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (strcmp(s[i].getStudentFirstName(), firstName) == 0 && strcmp(s[i].getStudentLastName(), lastName) == 0)
+			{
+				cout << "Student's first name: " << s[i].getStudentFirstName() << endl;
+				cout << "Student's surname: " << s[i].getStudentSurname() << endl;
+				cout << "Student's last name: " << s[i].getStudentLastName() << endl;
+				cout << "Student's age: " << s[i].getStudentAge() << endl;
+				cout << "Student's school number: " << s[i].getSchoolNumber() << endl;
+			}
+		}
+
+	}
+	void SearchTeacherBySubject(char *subject)
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			if (strcmp(t[i].getSubject(), subject) == 0)
+			{
+				cout << "Teacher's first name: " << t[i].getTeacherFirstName() << endl;
+				cout << "Teacher's surname:  " << t[i].getTeacherSurname() << endl;
+				cout << "Teacher's last name: " << t[i].getTeacherLastName() << endl;
+			}
+		}
+	}
 };
 int main()
 {
 	Student a("Elena", "Petkova", "Nikolova", 19, 14);
 	Student b("Donika", "Petkova", "Nikolova", 7, 6);
-	Student allstudents[2] = { a, b };
+	Student f("Donika", "Ivanova", "Nikolova", 10, 5);
+	Student allstudents[3] = { a, b,f };
 	Teacher c("Eleonora", "Antonova", "Nikolova", "Matematika");
 	Teacher d("Mariq", "Ivanova", "Ivanova", "Biologiq");
 	Teacher allTeachers[2] = { c, d };
 	School school(allstudents, allTeachers);
 	
 	school.searchStudentBySchoolNumber(14);
-
+	cout << "*******************************************************\n";
+	school.searchStudentByFirstAndLastName("Donika", "Nikolova");
+	cout << "*******************************************************\n";
+	school.SearchTeacherBySubject("Matematika");
 	system("pause");
 	return 0;
 }
