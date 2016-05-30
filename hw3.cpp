@@ -194,22 +194,22 @@ int main()
 		allWorkers[i].print();
 	}
 	cout << "***********************************************************\n";
-	Human human[20] = { oneSt, twoSt, threeSt, fourSt, fiveSt, sixSt, sevenSt, eightSt, nineSt, tenSt, oneW, twoW, threeW, fourW, fiveW, sixW, sevenW, eightW, nineW, tenW };
+	Human *human[20] = { &oneSt, &twoSt, &threeSt, &fourSt, &fiveSt, &sixSt, &sevenSt, &eightSt, &nineSt, &tenSt, &oneW, &twoW, &threeW, &fourW, &fiveW, &sixW, &sevenW, &eightW, &nineW, &tenW };
     for (int i = 0; i < 19; i++)
 	{
 		for (int j = i + 1; j < 20; j++)
-		if (strcmp(human[j].getFirstName(), human[i].getFirstName()) == 0)
+		if (strcmp(human[j]->getFirstName(), human[i]->getFirstName()) == 0)
 		{
-			if (strcmp(human[j].getLastName(), human[i].getLastName()) < 0)
+			if (strcmp(human[j]->getLastName(), human[i]->getLastName()) < 0)
 			{
-				Human h = human[i];
+				Human *h = human[i];
 				human[i] = human[j];
 				human[j] = h;
 			}
 		}
-		else if (strcmp(human[j].getFirstName(), human[i].getFirstName()) < 0)
+		else if (strcmp(human[j]->getFirstName(), human[i]->getFirstName()) < 0)
 		{
-			Human h = human[i];
+			Human *h = human[i];
 			human[i] = human[j];
 			human[j] = h;
 
@@ -217,7 +217,7 @@ int main()
 	}
 	for (int i = 0; i < 20; i++)
 	{
-		human[i].print();
+		human[i]->print();
 	}
 
 	system("pause");
