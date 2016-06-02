@@ -1,0 +1,71 @@
+#include<iostream>
+using namespace std;
+class Polygon
+{
+protected:
+	int width;
+	int height;
+public:
+	void set_values(int w, int h)
+	{
+		width = w;
+		height = h;
+
+	}
+	int virtual area()
+	{
+		return 0;
+	}
+	void printarea()
+	{
+		cout<<this->area()<<endl;
+	}
+};
+class Rectangle :public Polygon
+{
+public:
+	Rectangle(int a=0, int b=0)
+	{
+		width = a;
+		height = b;
+	}
+	int area()
+	{
+		return width*height;
+	}
+};
+class Triangle :public Polygon
+{
+public:
+	Triangle(int a=0, int b=0)
+	{
+		width = a;
+		height = b;
+	}
+	int area()
+	{
+		return width*height/2;
+	}
+};
+int main()
+{
+	Triangle tr;
+	Rectangle rect;
+	Polygon* poly1;
+	Polygon* poly2;
+	poly1 = &tr;
+	poly2 = &rect;
+	poly1->set_values(4, 5);
+	poly2->set_values(4, 5);
+	//cout << poly1-> area() << endl;
+	//cout << poly2->area() << endl;
+	poly1 = new Rectangle(4, 5);
+	poly2 = new Triangle(4, 5);
+	poly1->printarea();
+	poly2->printarea();
+	delete poly1;
+	delete poly2;
+
+	system("Pause");
+	return 0;
+}
